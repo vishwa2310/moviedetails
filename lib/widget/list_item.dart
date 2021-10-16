@@ -25,19 +25,18 @@ class MovieCard extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                height: 100,
+                height: 200,
                 child: Image.network('https://image.tmdb.org/t/p/w500/${movies.imageUrl}'),
               ),
               Expanded(
                 child: Container(
-                  height: 100,
+                  height: 200,
                   padding:  EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:  <Widget>[
                       Text(movies.title, // Edit this
-                          style:
-                              TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                       SizedBox(height: 10),
                       Expanded(child: Text(movies.overview, maxLines: 3, overflow: TextOverflow.ellipsis,)) // Edit this
                     ],
