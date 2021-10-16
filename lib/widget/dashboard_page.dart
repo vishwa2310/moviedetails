@@ -30,8 +30,8 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         title: const Text(APPLICATION_NAME),
       ),
-      body: ListView.builder(
-          itemCount: _movies.length, itemBuilder: (context, i) =>  MovieCard(movies:_movies[i])),
+      body: _movies.isNotEmpty?ListView.builder(
+          itemCount: _movies.length, itemBuilder: (context, i) =>  MovieCard(movies:_movies[i])):const CircularProgressIndicator(),
     );
   }
 

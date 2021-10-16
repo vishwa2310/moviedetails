@@ -27,12 +27,12 @@ class MovieDetailsScreen extends StatelessWidget {
                   tag: "id",
 
                   child: Container(
-                    height: 250,
+                    height: 400,
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       image: DecorationImage(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                         image: NetworkImage(
                           'https://image.tmdb.org/t/p/w500/${movies!.imageUrl}',
                         ),
