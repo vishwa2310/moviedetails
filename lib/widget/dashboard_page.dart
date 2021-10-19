@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mymovies/model/movie.dart';
-import 'package:mymovies/network/newtworkcall.dart';
+import 'package:mymovies/model/movielistener.dart';
 import 'package:mymovies/utils/constants.dart';
 
 import 'list_item.dart';
@@ -13,16 +13,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-   List<Movie> _movies =  <Movie>[];
+    Future<List<Movie>>? populateAllMovies;
 
   @override
   void initState() {
     super.initState();
-    _populateAllMovies();
-
+     _populateData();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +27,56 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         title: const Text(APPLICATION_NAME),
       ),
-      body: _movies.isNotEmpty?ListView.builder(
-          itemCount: _movies.length, itemBuilder: (context, i) =>  MovieCard(movies:_movies[i])):const CircularProgressIndicator(),
+      body: FutureBuilder<List<Movie>>(
+        future: populateAllMovies,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData &&
+              snapshot.connectionState == ConnectionState.done) {
+            print(" has data ${snapshot.hasData}");
+            List<Movie> item = snapshot.data!;
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: item.length,
+                itemBuilder: (context, i) => MovieCard(movies: item[i]));
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Icon(Icons.sentiment_dissatisfied),
+                  Text("$ERROR ${snapshot.error}"),
+                  FlatButton(
+                    child: const Text(RETRY),
+                    onPressed: _populateData(),
+                  )
+                ],
+              ),
+            );
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(WAITINGFORDATA)
+                ],
+              ),
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
+
+
     );
   }
 
-
-
-
-void _populateAllMovies() async {
-  final movies = await fetchAllMovies();
-
-  setState(() {
-    print('url call2');
-    _movies = movies;
-  });
+  _populateData()  {
+    populateAllMovies = MovieListener().populateAllMovies();
+      }
 }
-
-
-
-}
-

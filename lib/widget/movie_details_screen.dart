@@ -3,15 +3,15 @@ import 'package:mymovies/model/movie.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   static const routeName = '/MovieDetailsScreen';
-  final Movie? movies;
+  final Movie movies;
 
-  MovieDetailsScreen({this.movies});
+   MovieDetailsScreen({required this.movies});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         title: Text(movies!.title),
+         title: Text(movies.title),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
@@ -34,7 +34,7 @@ class MovieDetailsScreen extends StatelessWidget {
                       image: DecorationImage(
                         fit: BoxFit.fill,
                         image: NetworkImage(
-                          'https://image.tmdb.org/t/p/w500/${movies!.imageUrl}',
+                          'https://image.tmdb.org/t/p/w500/${movies.imageUrl}',
                         ),
                       ),
                     ),
@@ -42,7 +42,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -57,12 +57,12 @@ class MovieDetailsScreen extends StatelessWidget {
                         size: 20,
                         color: Theme.of(context).primaryColor,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        movies!.vote.toString(),
-                        style: TextStyle(
+                        movies.vote.toString(),
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -77,12 +77,12 @@ class MovieDetailsScreen extends StatelessWidget {
                         size: 20,
                         color: Theme.of(context).primaryColor,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        movies!.year,
-                        style: TextStyle(
+                        movies.year,
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -97,12 +97,12 @@ class MovieDetailsScreen extends StatelessWidget {
                         size: 20,
                         color: Theme.of(context).primaryColor,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        movies!.rating,
-                        style: TextStyle(
+                        movies.rating,
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
 
@@ -111,18 +111,18 @@ class MovieDetailsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
-              movies!.overview,
-              style: TextStyle(
+              movies.overview,
+              style: const TextStyle(
                 fontSize: 16,
 
               ),
               textAlign: TextAlign.left,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
